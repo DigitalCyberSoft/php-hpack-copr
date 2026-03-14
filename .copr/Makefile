@@ -4,8 +4,8 @@
 # COPR provides outdir, set default for local testing
 outdir ?= .
 
-# php-hpack version (latest release)
-HPACK_VERSION = 1.0.0
+# Fetch latest release version from GitHub
+HPACK_VERSION := $(shell curl -s https://api.github.com/repos/DigitalCyberSoft/php-hpack/releases/latest | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')
 HPACK_URL = https://github.com/DigitalCyberSoft/php-hpack/archive/refs/tags/$(HPACK_VERSION).tar.gz
 
 # Default target for COPR
