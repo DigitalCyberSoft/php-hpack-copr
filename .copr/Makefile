@@ -5,8 +5,8 @@
 outdir ?= .
 
 # Fetch latest release version from GitHub
-HPACK_VERSION := $(shell curl -s https://api.github.com/repos/DigitalCyberSoft/php-hpack/releases/latest | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')
-HPACK_URL = https://github.com/DigitalCyberSoft/php-hpack/archive/refs/tags/$(HPACK_VERSION).tar.gz
+HPACK_VERSION := $(shell curl -s https://api.github.com/repos/DigitalCyberSoft/php-hpack/releases/latest | sed -n 's/.*"tag_name": *"v\?\([^"]*\)".*/\1/p')
+HPACK_URL = https://github.com/DigitalCyberSoft/php-hpack/archive/refs/tags/v$(HPACK_VERSION).tar.gz
 
 # Default target for COPR
 srpm:
@@ -17,13 +17,6 @@ srpm:
 	# Download php-hpack source
 	@echo "=== Downloading php-hpack $(HPACK_VERSION) ==="
 	curl -L -o php-hpack-$(HPACK_VERSION).tar.gz $(HPACK_URL) || exit 1
-
-	# Extract and prepare source
-	@echo "=== Preparing source ==="
-	tar xzf php-hpack-$(HPACK_VERSION).tar.gz || exit 1
-	mv php-hpack-$(HPACK_VERSION) php-hpack-temp
-	tar czf php-hpack-$(HPACK_VERSION).tar.gz php-hpack-temp/ --transform='s/php-hpack-temp/php-hpack-$(HPACK_VERSION)/' || exit 1
-	rm -rf php-hpack-temp/
 
 	# Generate spec file
 	@echo "=== Generating spec file ==="
