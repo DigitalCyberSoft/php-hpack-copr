@@ -30,7 +30,7 @@ srpm:
 	echo ''; \
 	echo 'Name:           php-%{pecl_name}'; \
 	echo 'Version:        $(HPACK_VERSION)'; \
-	echo 'Release:        1%{?dist}'; \
+	echo 'Release:        1.php%{php_major_version}%{php_minor_version}%{?dist}'; \
 	echo 'Summary:        HPACK header compression extension for PHP (RFC 7541)'; \
 	echo ''; \
 	echo 'License:        MIT'; \
