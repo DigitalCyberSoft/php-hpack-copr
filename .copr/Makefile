@@ -10,6 +10,8 @@ HPACK_URL = https://github.com/DigitalCyberSoft/php-hpack/archive/refs/tags/v$(H
 
 # Default target for COPR
 srpm:
+	dnf -y install php-devel
+
 	@echo "=== Starting php-hpack SRPM build ==="
 	@echo "Output directory: $(outdir)"
 	@echo "Working directory: $$(pwd)"
