@@ -20,9 +20,13 @@ srpm:
 	@echo "=== Downloading php-hpack $(HPACK_VERSION) ==="
 	curl -L -o php-hpack-$(HPACK_VERSION).tar.gz $(HPACK_URL) || exit 1
 
+	# Get PHP version from php-config
+	@PHP_VER=$$(php-config --version); echo "  PHP version: $$PHP_VER"
+
 	# Generate spec file
 	@echo "=== Generating spec file ==="
-	@( \
+	@PHP_VER=$$(php-config --version); \
+	( \
 	echo '# we dont want -z defs linker flag'; \
 	echo '%undefine _strict_symbol_defs_build'; \
 	echo ''; \
@@ -32,7 +36,7 @@ srpm:
 	echo ''; \
 	echo 'Name:           php-%{pecl_name}'; \
 	echo 'Version:        $(HPACK_VERSION)'; \
-	echo 'Release:        1.php%{php_major_version}%{php_minor_version}%{?dist}'; \
+	echo "Release:        1.php$${PHP_VER}%{?dist}"; \
 	echo 'Summary:        HPACK header compression extension for PHP (RFC 7541)'; \
 	echo ''; \
 	echo 'License:        MIT'; \
