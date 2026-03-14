@@ -10,7 +10,6 @@ HPACK_URL = https://github.com/DigitalCyberSoft/php-hpack/archive/refs/tags/v$(H
 
 # Default target for COPR
 srpm:
-	dnf -y install php-devel
 	@echo "=== Starting php-hpack SRPM build ==="
 	@echo "Output directory: $(outdir)"
 	@echo "Working directory: $$(pwd)"
@@ -31,7 +30,7 @@ srpm:
 	echo ''; \
 	echo 'Name:           php-%{pecl_name}'; \
 	echo 'Version:        $(HPACK_VERSION)'; \
-	echo 'Release:        1.php%{php_version}%{?dist}'; \
+	echo 'Release:        1%{?dist}'; \
 	echo 'Summary:        HPACK header compression extension for PHP (RFC 7541)'; \
 	echo ''; \
 	echo 'License:        MIT'; \
