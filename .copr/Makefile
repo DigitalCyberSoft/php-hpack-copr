@@ -7,6 +7,7 @@ outdir ?= .
 # Fetch latest release version from GitHub
 HPACK_VERSION := $(shell curl -s https://api.github.com/repos/DigitalCyberSoft/php-hpack/releases/latest | sed -n 's/.*"tag_name": *"v\?\([^"]*\)".*/\1/p')
 HPACK_URL = https://github.com/DigitalCyberSoft/php-hpack/archive/refs/tags/v$(HPACK_VERSION).tar.gz
+RELEASE := $(shell cat $(CURDIR)/release 2>/dev/null || echo 1)
 
 # Default target for COPR
 srpm:
@@ -30,7 +31,7 @@ srpm:
 	echo ''; \
 	echo 'Name:           php-%{pecl_name}'; \
 	echo 'Version:        $(HPACK_VERSION)'; \
-	echo 'Release:        1%{?dist}'; \
+	echo 'Release:        $(RELEASE)%{?dist}'; \
 	echo 'Summary:        HPACK header compression extension for PHP (RFC 7541)'; \
 	echo ''; \
 	echo 'License:        MIT'; \
